@@ -1,0 +1,61 @@
+<%= render 'beehive/shared/page_header', title: 'Taxonomies' do %>
+  <%= content_for :body do %>
+    <p>Manage taxonomies and taxons of your website</p>
+  <% end %>
+
+  <%= content_for :actions do %>
+    <a href="<%= new_admin_settings_taxonomy_path %>" class="btn btn-primary">Add taxonomy</a>
+  <% end %>
+<% end %>
+
+<div class="bh-page-content">
+  <%= search_form_for @q, url: admin_settings_taxonomies_path do |f| %>
+    <div class="card" id="more-filters">
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <%= f.label :name_cont, 'Name' %>
+              <%= f.search_field :name_cont, class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <%= f.label :description_cont, 'Description' %>
+              <%= f.search_field :description_cont, class: 'form-control' %>
+            </div>
+          </div>
+        </div>
+
+        <%= f.submit 'Filter results', class: 'btn btn-primary' %>
+      </div>
+    </div>
+  <% end %>
+
+  <table class="table table-hover table-striped">
+    <thead>
+      <th><%= sort_link(@q, :id) %></th>
+      <th><%= sort_link(@q, :name) %></th>
+      <th>Description</th>
+      <th><%= sort_link(@q, :taxons_count, 'Taxons') %></th>
+      <th></th>
+    </thead>
+
+    <% @taxonomies.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.name %></td>
+        <td><%= user.description %></td>
+        <td><%= user.taxons_count %></td>
+        <td class="text-right">
+          <a href="<%= edit_admin_settings_taxonomy_path(user) %>" class="btn btn-primary btn-sm">
+            <i class="fa fa-pen"></i>
+          </a>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+
+  <%== pagy_nav(@pagy) %>
+</div>
