@@ -15,10 +15,15 @@ module Beehive
           @pagy, @taxonomies = pagy(results)
         end
 
+        def show
+          @taxonomy = find_taxonomy
+          redirect_to admin_settings_taxonomy_taxons_path(@taxonomy)
+        end
+
         def edit
           @taxonomy = find_taxonomy
           authorize @taxonomy
-          breadcrumb @taxonomy.decorate.to_s, edit_admin_settings_taxonomy_path(@taxonomy.id)
+          breadcrumb @taxonomy.decorate.to_s, admin_settings_taxonomy_path(@taxonomy.id)
         end
 
         def new
@@ -39,7 +44,7 @@ module Beehive
         end
 
         def create
-          authorize User
+          authorize Taxonomy
           @taxonomy = Taxonomy.new(taxonomy_params)
 
           if @taxonomy.save
@@ -47,6 +52,14 @@ module Beehive
           else
             render :new
           end
+        end
+
+        def destroy
+          @taxonomy = find_taxonomy
+          authorize @taxonomy
+
+          @taxonomy.destroy
+          redirect_to admin_settings_taxonomies_path
         end
 
         private

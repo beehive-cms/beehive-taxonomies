@@ -1,4 +1,4 @@
-module Beehive::Taxonomies
+module Beehive
   class Taxon < ApplicationRecord
     belongs_to :taxonomy
   end

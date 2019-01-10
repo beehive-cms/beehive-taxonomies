@@ -1,0 +1,9 @@
+<%= render 'beehive/shared/page_header', title: 'New taxon' do %>
+  <%= content_for :body do %>
+    <p>Create new taxon for <%= @taxonomy.decorate %> taxonomy</p>
+  <% end %>
+<% end %>
+
+<div class="bh-page-content">
+  <%= render 'beehive/admin/settings/taxons/form' %>
+</div>

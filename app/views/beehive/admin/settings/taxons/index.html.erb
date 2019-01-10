@@ -1,15 +1,15 @@
-<%= render 'beehive/shared/page_header', title: 'Taxonomies' do %>
+<%= render 'beehive/shared/page_header', title: @taxonomy.decorate do %>
   <%= content_for :body do %>
-    <p>Manage taxonomies and taxons of your website</p>
+    <p>Manage taxons for <%= @taxonomy.decorate %> taxonomy</p>
   <% end %>
 
   <%= content_for :actions do %>
-    <a href="<%= new_admin_settings_taxonomy_path %>" class="btn btn-primary">Add taxonomy</a>
+    <a href="<%= new_admin_settings_taxonomy_taxon_path %>" class="btn btn-primary">Add taxonomy</a>
   <% end %>
 <% end %>
 
 <div class="bh-page-content">
-  <%= search_form_for @q, url: admin_settings_taxonomies_path do |f| %>
+  <%= search_form_for @q, url: admin_settings_taxonomy_taxons_path do |f| %>
     <div class="card" id="more-filters">
       <div class="card-body">
         <div class="row">
@@ -38,26 +38,20 @@
       <th><%= sort_link(@q, :id) %></th>
       <th><%= sort_link(@q, :name) %></th>
       <th>Description</th>
-      <th><%= sort_link(@q, :taxons_count, 'Taxons') %></th>
+      <th><%= sort_link(@q, :taxonables_count, 'Taxonables') %></th>
       <th></th>
     </thead>
 
-    <% @taxonomies.each do |taxonomy| %>
+    <% @taxons.each do |taxon| %>
       <tr>
-        <td><%= taxonomy.id %></td>
-        <td><%= taxonomy.name %></td>
-        <td><%= taxonomy.description %></td>
-        <td><%= taxonomy.taxons_count %></td>
+        <td><%= taxon.id %></td>
+        <td><%= taxon.name %></td>
+        <td><%= taxon.description %></td>
+        <td><%= taxon.taxonables_count %></td>
         <td class="text-right">
-          <div class="btn-group">
-            <a href="<%= admin_settings_taxonomy_taxons_path(taxonomy) %>" class="btn btn-outline-secondary btn-sm">
-              <i class="fa fa-tag"></i>
-            </a>
-
-            <a href="<%= edit_admin_settings_taxonomy_path(taxonomy) %>" class="btn btn-primary btn-sm">
-              <i class="fa fa-pen"></i>
-            </a>
-          </div>
+          <a href="<%= edit_admin_settings_taxonomy_taxon_path(@taxonomy, taxon) %>" class="btn btn-primary btn-sm">
+            <i class="fa fa-pen"></i>
+          </a>
         </td>
       </tr>
     <% end %>

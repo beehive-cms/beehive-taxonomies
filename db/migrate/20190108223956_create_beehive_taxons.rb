@@ -3,7 +3,7 @@ class CreateBeehiveTaxons < ActiveRecord::Migration[5.2]
     create_table :beehive_taxons do |t|
       t.string :name
       t.text :description
-      t.references :taxonomy, foreign_key: true
+      t.references :taxonomy, foreign_key: { to_table: :beehive_taxonomies }, index: true
       t.integer :taxonables_count, default: 0
 
       t.timestamps

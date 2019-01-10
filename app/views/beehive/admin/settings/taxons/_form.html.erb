@@ -1,6 +1,6 @@
-<% action = @taxonomy.persisted? ? admin_settings_taxonomy_path(@taxonomy) : admin_settings_taxonomies_path %>
+<% action = @taxon.persisted? ? admin_settings_taxonomy_taxon_path(@taxon) : admin_settings_taxonomy_taxons_path %>
 
-<%= form_for @taxonomy, url: action, as: :taxonomy do |f| %>
+<%= form_for @taxon, url: action, as: :taxon do |f| %>
   <%= render 'beehive/shared/form_errors', resource: f.object %>
 
   <div class="form-section row">
@@ -36,7 +36,7 @@
       <div class="col">
         <div class="card">
           <div class="card-body">
-            <%= link_to 'Delete taxonomy', admin_settings_taxonomy_path(@taxonomy), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+            <%= link_to 'Delete taxon', admin_settings_taxonomy_taxon_path(@taxon), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
           </div>
         </div>
       </div>
