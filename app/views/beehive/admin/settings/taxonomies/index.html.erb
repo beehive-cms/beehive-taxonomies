@@ -9,8 +9,21 @@
 <% end %>
 
 <div class="bh-page-content">
-  <%= search_form_for @q, url: admin_settings_taxonomies_path do |f| %>
-    <div class="card" id="more-filters">
+  <%= search_form_for @q, url: admin_settings_taxonomies_path, data: { controller: 'search-form' } do |f| %>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <button type="button" class="btn btn-outline-secondary" data-action="click->search-form#toggleMoreFilters">
+          Filter
+        </button>
+      </div>
+
+      <%= f.search_field :name_or_description_cont, placeholder: 'Quick search...',
+                                                    class: 'form-control',
+                                                    data: { action: 'keydown->search-form#submitForm' }
+      %>
+    </div>
+
+    <div class="card d-none" data-target="search-form.moreFilters">
       <div class="card-body">
         <div class="row">
           <div class="col">
